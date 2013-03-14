@@ -1,6 +1,6 @@
 module ApplicationHelper
   def admins_only(&block)
-    concat(block.call) if current_user.try(:admin?)
+    block.call if current_user.try(:admin?)
   end
 
   def title(*parts)
