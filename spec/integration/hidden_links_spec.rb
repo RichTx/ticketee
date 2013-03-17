@@ -71,7 +71,7 @@ feature "hidden links" do
 
     scenario "Delete ticket link is shown to a user with permission" do
       define_permission!(user, "view", project)
-      define_permission!(user, "delete ticket", project)
+      define_permission!(user, "delete tickets", project)
       visit project_path(project)
       click_link ticket.title
       assert_link_for "Delete Ticket"

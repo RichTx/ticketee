@@ -4,7 +4,7 @@
   <% authorized?("edit tickets", @project) do %>
     <%= link_to "Edit Ticket", [:edit, @project, @ticket] %>
   <% end %>
-  <% authorized?("delete ticket", @project) do %>
+  <% authorized?("delete tickets", @project) do %>
     <%= link_to "Delete Ticket",
                 [@project, @ticket],
                 :method => :delete,
