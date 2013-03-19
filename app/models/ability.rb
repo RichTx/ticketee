@@ -11,4 +11,8 @@ class Ability
       end
     end
   end
+
+  def blablabla
+    puts "blablabla"
+  end
 end
