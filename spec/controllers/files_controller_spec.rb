@@ -5,7 +5,7 @@ describe FilesController do
   let(:bad_user) { Factory(:confirmed_user) }
 
   let(:project) { Factory(:project) }
-  let(:ticket) { Factory(:ticket, :project => project)}
+  let(:ticket) { Factory(:ticket, :project => project, :user => good_user)}
 
   let(:path) { Rails.root + "spec/fixtures/speed.txt" }
   let(:asset) do
