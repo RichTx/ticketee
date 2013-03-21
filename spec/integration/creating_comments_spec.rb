@@ -30,6 +30,7 @@ feature "Creating comments" do
   end
 
   scenario "Changing a ticket's state" do
+    define_permission!(user, "change states", project)
     click_link ticket.title
     fill_in "Text", :with=> "This is a real issue"
     select "Open", :from => "State"
@@ -41,6 +42,12 @@ feature "Creating comments" do
     within("#comments") do
       page.should have_content("State: Open ")
     end
+  end
+
+  scenario "A user without permission cannot change the state" do
+    click_link ticket.title
+    find_element = lambda { find("#comment_state_id") }
+    find_element.should raise_error(Capybara::ElementNotFound)
   end
 
 end
