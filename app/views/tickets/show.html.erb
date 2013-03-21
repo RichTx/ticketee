@@ -1,6 +1,6 @@
 <div id='ticket'>
   <h2><%= @ticket.title %></h2>
-  <small>Created by <%= @ticket.user.email %></small><br>
+  <small id='author'>Created by <%= @ticket.user.email %></small><br>
   <% authorized?("edit tickets", @project) do %>
     <%= link_to "Edit Ticket", [:edit, @project, @ticket] %>
   <% end %>
@@ -12,8 +12,8 @@
                 :confirm => "Are you sure you want to delete this ticket?" %>
   <% end %>
 
+  <%= render @ticket.state if @ticket.state %>
   <%= simple_format(@ticket.description) %>
-  <small id='author'>Created by <%= @ticket.user.email %></small>
 
   <% if @ticket.assets.exists? %>
     <h3>Attached Files</h3>
