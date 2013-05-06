@@ -5,6 +5,7 @@ feature "Creating Tickets" do
     project = Factory(:project, :name => "Internet Explorer")
     user = Factory(:confirmed_user, :email => "ticketee@example.com")
     define_permission!(user, "view", project)
+    define_permission!(user, "tag", project)
     define_permission!(user, "create tickets", project)
     sign_in_as!(user)
 
@@ -72,7 +73,6 @@ feature "Creating Tickets" do
     fill_in "Tags", :with => "browser visual"
     click_button "Create Ticket"
     page.should have_content("Ticket has been created.")
-    save_and_open_page
     within("#ticket #tags") do
         page.should have_content("browser")
         page.should have_content("visual")

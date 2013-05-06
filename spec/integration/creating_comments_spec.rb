@@ -4,9 +4,12 @@ feature "Creating comments" do
   let!(:user) { Factory(:confirmed_user) }
   let!(:project) { Factory(:project) }
   let!(:ticket) { Factory(:ticket, :project => project, :user => user) }
+
   before do
     define_permission!(user, "view", project)
+    define_permission!(user, "tag", project)
     Factory(:state, :name => "Open")
+
     sign_in_as!(user)
     visit '/'
     click_link project.name
