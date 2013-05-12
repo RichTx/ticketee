@@ -12,6 +12,10 @@ class Ticket < ActiveRecord::Base
   accepts_nested_attributes_for :assets
 
   has_many :comments
+
+  has_and_belongs_to_many :watchers, :join_table => "ticket_watchers",
+                                     :class_name => "User"
+
   has_and_belongs_to_many :tags
 
   attr_accessible :description, :title, :assets_attributes, :tag_names
@@ -23,7 +27,15 @@ class Ticket < ActiveRecord::Base
 
   before_create :associate_tags
 
+  after_create :creator_watchers_me
+
   private
+
+  def creator_watchers_me
+    if user
+      self.watchers << user unless self.watchers.include?(user)
+    end
+  end
 
   def associate_tags
     if tag_names

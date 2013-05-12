@@ -18,17 +18,17 @@ class CommentsController < ApplicationController
 
   private
 
-    def find_ticket
-      @ticket = Ticket.find(params[:ticket_id])
+  def find_ticket
+    @ticket = Ticket.find(params[:ticket_id])
+  end
+
+  def sanitize_parameters!
+    if cannot?(:"change states", @ticket.project)
+      params[:comment].delete(:state_id)
     end
 
-    def sanitize_parameters!
-      if cannot?(:tag, @ticket.project)
-        params[:comment].delete(:tag_names)
-      end
-      if cannot?(:"change states", @ticket.project)
-        params[:comment].delete(:state_id)
-      end
+    if cannot?(:tag, @ticket.project)
+      params[:comment].delete(:tag_names)
     end
-
+  end
 end
