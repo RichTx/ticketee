@@ -14,6 +14,7 @@ class Comment < ActiveRecord::Base
   delegate :project, :to => :ticket
 
   after_create :associate_tags_with_ticket
+  after_create :creator_watches_ticket
 
   private
 
@@ -34,6 +35,10 @@ class Comment < ActiveRecord::Base
       self.ticket.tags += tags
       self.ticket.save
     end
+  end
+
+  def creator_watches_ticket
+    ticket.watchers << user
   end
 
 end
